@@ -1,0 +1,830 @@
+/* ==========================================================================
+   1. DESIGN TOKENS (Single Source of Truth)
+   ========================================================================== */
+:root {
+    /* Color Palette — Warm Editorial Aesthetic */
+    --bg: #EFE5D5;
+    /* Warm golden linen base background */
+    --paper: #E6D8C3;
+    /* Honeyed antique parchment for cards & panels */
+    --paper-hover: #DFCEB7;
+    /* Slightly deeper parchment for hover states */
+    --ink: rgb(36, 28, 22);
+    /* Deep espresso dark ink (High contrast) */
+    --ink-2: rgba(36, 28, 22, 0.84);
+    /* Primary reading text */
+    --ink-3: rgba(36, 28, 22, 0.65);
+    /* Secondary muted text, dates, metadata */
+    --line: rgba(36, 28, 22, 0.12);
+    /* Subtle hairline borders & dividers */
+
+    /* Typography */
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+
+    /* Elevation & Shadows */
+    --shadow-subtle: 0 4px 20px rgba(36, 28, 22, 0.06);
+    --shadow-book: 0 14px 34px rgba(36, 28, 22, 0.18), 0 4px 10px rgba(36, 28, 22, 0.08);
+
+    /* Transitions */
+    --transition-smooth: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   2. MODERN CSS RESET & BASE STYLES
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--bg);
+    /* Elegant Layered Background: Subtle gradient overlay on top of paper pattern */
+    background-image:
+        linear-gradient(180deg, rgba(239, 229, 213, 0.24) 0%, rgba(239, 229, 213, 0.12) 30%, rgba(239, 229, 213, 0.22) 70%, rgba(239, 229, 213, 0.36) 100%),
+        url('images/bg-pattern.jpg');
+    background-repeat: repeat;
+    background-size: 760px auto;
+    background-attachment: fixed;
+    color: var(--ink-2);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Image & Media Reset */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Typography Defaults */
+h1,
+h2,
+h3 {
+    font-family: var(--font-serif);
+    color: var(--ink);
+    font-weight: 400;
+    text-wrap: balance;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* ==========================================================================
+   3. LAYOUT SHELL & SIDEBAR
+   ========================================================================== */
+
+/* Fixed Desktop Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 264px;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 32px 32px;
+    background: rgba(239, 229, 213, 0.88);
+    /* Subtle translucent linen */
+    backdrop-filter: blur(14px);
+    /* Luxury Frosted Glass effect */
+    border-right: 1px solid var(--line);
+    z-index: 40;
+}
+
+/* Push main content to the right so it doesn't hide behind fixed sidebar */
+.main-content {
+    margin-left: 264px;
+    min-width: 0;
+}
+
+/* Brand Identity Styling */
+.brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 64px;
+    /* Generous editorial whitespace */
+}
+
+.brand__name {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+.brand__sub {
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+}
+
+/* Navigation Links Container */
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Base Link Styling */
+.nav__link {
+    position: relative;
+    display: block;
+    padding: 8px 0 8px 16px;
+    font-size: 0.9375rem;
+    color: var(--ink-3);
+    /* Muted ink tone for inactive links */
+    transition: color 180ms ease;
+}
+
+/* The Subtle Vertical Bookmark Indicator (Hidden by default: height 0) */
+.nav__link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1.5px;
+    height: 0;
+    background: var(--ink);
+    transform: translateY(-50%);
+    transition: height 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover State: Darkens ink tone */
+.nav__link:hover {
+    color: var(--ink);
+}
+
+/* Active State: The link is currently selected */
+.nav__link.is-active {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+/* When active, the vertical bookmark indicator grows smoothly to 18px */
+.nav__link.is-active::before {
+    height: 18px;
+}
+
+/* Sidebar Bottom Section */
+.sidebar__foot {
+    margin-top: auto;
+    /* Flexbox Magic: Pushes this whole footer to the bottom! */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+}
+
+/* Shopping Bag Button */
+.bag-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--ink);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition: all var(--transition-smooth);
+}
+
+.bag-btn:hover {
+    background: var(--paper-hover);
+    border-color: rgba(36, 28, 22, 0.28);
+}
+
+/* Shopping Bag Quantity Badge */
+.bag-btn__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: var(--ink);
+    /* Espresso dark pill */
+    color: var(--bg);
+    /* Linen text */
+    border-radius: 999px;
+    /* Perfect rounded pill shape */
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Store Opening Hours Metadata */
+.sidebar__hours {
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   4. RESPONSIVE NAVIGATION (Mobile Optimization)
+   ========================================================================== */
+
+/* Desktop: Hide Mobile Menu Hamburger */
+.menu-toggle {
+    display: none;
+}
+
+/* Mobile & Tablet Breakpoint (< 960px) */
+@media (max-width: 960px) {
+
+    /* 1. Main content takes full screen without sidebar margin */
+    .main-content {
+        margin-left: 0;
+        margin-top: 64px;
+    }
+
+    /* 2. Sidebar transforms from Left Column into Top Navigation Bar */
+    .sidebar {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: auto;
+        width: 100%;
+        height: 64px;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 20px;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+        margin-bottom: 0;
+    }
+
+    .brand__name {
+        font-size: 1.35rem;
+    }
+
+    /* Hide extra text on small screens to save valuable space */
+    .brand__sub,
+    .sidebar__hours {
+        display: none;
+    }
+
+    /* Re-align bag button in the top bar */
+    .sidebar__foot {
+        margin-top: 0;
+        margin-left: auto;
+        order: 2;
+        padding-top: 0;
+        border-top: none;
+    }
+
+    /* 3. Hamburger Button appears */
+    .menu-toggle {
+        display: grid;
+        place-content: center;
+        gap: 6px;
+        width: 40px;
+        height: 40px;
+        order: 3;
+        margin-left: 8px;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 20px;
+        height: 1.5px;
+        background: var(--ink);
+        transition: transform 260ms ease;
+    }
+
+    /* 4. Dropdown Navigation Drawer for Mobile */
+    .nav {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        padding: 24px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        transition: all 260ms ease;
+    }
+
+    /* Active state when opened */
+    .nav.is-open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+}
+
+/* ==========================================================================
+   6. 3D BOOK STACK & FACTS STRIP
+   ========================================================================== */
+
+/* 3D Visual Container */
+.hero__visual {
+    display: grid;
+    place-items: center;
+}
+
+.hero__stack {
+    position: relative;
+    width: min(100%, 420px);
+    aspect-ratio: 1 / 1.05;
+}
+
+/* Individual 3D Book Cover Base */
+.hero__book {
+    position: absolute;
+    aspect-ratio: 2 / 3;
+    /* Authentic paperback book ratio */
+    border-radius: 2px 5px 5px 2px;
+    box-shadow: 0 16px 36px rgba(36, 28, 22, 0.22), 0 4px 10px rgba(36, 28, 22, 0.08);
+    overflow: hidden;
+    background: var(--paper);
+    transition: transform 0.3s ease;
+}
+
+.hero__book img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Realistic 3D Book Spine Highlight & Crease Shadow */
+.hero__book::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Simulates the light reflection on the curved spine and shadow in the hinge */
+    background: linear-gradient(90deg,
+            rgba(0, 0, 0, 0.22) 0%,
+            rgba(255, 255, 255, 0.15) 2.5%,
+            rgba(0, 0, 0, 0.06) 5.5%,
+            transparent 12%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Individual Book Positioning & Casual Rotations */
+.hero__book--1 {
+    left: 2%;
+    top: 14%;
+    width: 52%;
+    transform: rotate(-7deg);
+}
+
+.hero__book--2 {
+    left: 46%;
+    top: 6%;
+    width: 52%;
+    transform: rotate(5deg);
+}
+
+.hero__book--3 {
+    left: 22%;
+    top: 22%;
+    width: 56%;
+    transform: rotate(-1deg);
+    z-index: 3;
+    /* Sits on top of the other two */
+}
+
+/* Hover: Slight tactile lift */
+.hero__book:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Store Facts Strip */
+.facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+}
+
+.facts>div {
+    padding: 0 24px 0 0;
+}
+
+.facts>div+div {
+    padding-left: 24px;
+    border-left: 1px solid var(--line);
+    /* Vertical hairline divider */
+}
+
+.facts dt {
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    line-height: 1.1;
+    color: var(--ink);
+}
+
+.facts dd {
+    font-size: 0.9375rem;
+    color: var(--ink-3);
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   7. CATALOG SECTION & BOOK GRID
+   ========================================================================== */
+
+/* Catalog Container with Parchment Band */
+.section {
+    padding: 80px 0;
+}
+
+.section--paper {
+    background: rgba(230, 216, 195, 0.45);
+    /* Antique parchment strip */
+    border-block: 1px solid var(--line);
+}
+
+.container {
+    width: min(1120px, 100% - 48px);
+    margin-inline: auto;
+}
+
+.section__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+}
+
+.section__head h2 {
+    font-size: 2.25rem;
+    margin-bottom: 8px;
+}
+
+.section__head p {
+    color: var(--ink-3);
+}
+
+/* Category Filter Pill Tabs */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.filter {
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    color: var(--ink-3);
+    background: transparent;
+    transition: all var(--transition-smooth);
+}
+
+.filter:hover {
+    color: var(--ink);
+}
+
+.filter.is-active {
+    color: var(--ink);
+    background: rgba(36, 28, 22, 0.08);
+    /* Espresso pill background */
+    font-weight: 500;
+}
+
+/* 4-Column Responsive Book Grid */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px 24px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Individual Book Card */
+.book {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.book .cover {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border-radius: 2px 4px 4px 2px;
+    box-shadow: var(--shadow-book);
+    overflow: hidden;
+    background: #E8E2D8;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover: Subtle book elevation */
+.book:hover .cover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(36, 28, 22, 0.24);
+}
+
+.book .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Book Metadata */
+.book__body {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.book__title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    line-height: 1.3;
+    color: var(--ink);
+}
+
+.book__author {
+    font-size: 0.875rem;
+    color: var(--ink-3);
+}
+
+.book__price {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 4px;
+}
+
+/* Responsive Grid Columns */
+@media (max-width: 1024px) {
+    .book-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 680px) {
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ==========================================================================
+   8. BOOK DETAILS MODAL
+   ========================================================================== */
+
+/* Dark Frosted Backdrop */
+.book-modal-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 75;
+    background: rgba(36, 28, 22, 0.45);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 260ms ease;
+}
+
+.book-modal-scrim.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Floating Parchment Dialog Box */
+.book-modal {
+    position: fixed;
+    inset: 32px;
+    z-index: 80;
+    max-width: 960px;
+    max-height: calc(100vh - 64px);
+    margin: auto;
+    background: #F3EBDD;
+    /* Warm antique reading paper */
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 24px 60px rgba(36, 28, 22, 0.28);
+    overflow-y: auto;
+    padding: 0;
+
+    /* Initial hidden state: scaled down & slightly lowered */
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 260ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Open State: Springs into center */
+.book-modal.is-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Tactile Close Button (X) */
+.book-modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    color: var(--ink);
+    transition: background 180ms ease;
+    cursor: pointer;
+}
+
+.book-modal__close:hover {
+    background: rgba(36, 28, 22, 0.08);
+}
+
+/* Two-Column Internal Grid (Cover on left, details on right) */
+.book-modal__grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 48px;
+    padding: 48px;
+    align-items: start;
+}
+
+/* Mobile: Stack into single column */
+@media (max-width: 820px) {
+    .book-modal {
+        inset: 0;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .book-modal__grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 32px 24px;
+    }
+}
+
+/* ==========================================================================
+   9. SHOPPING BAG DRAWER
+   ========================================================================== */
+
+/* Dark Backdrop for Bag */
+.bag-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 85;
+    background: rgba(36, 28, 22, 0.45);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 260ms ease;
+}
+
+.bag-scrim.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Off-Canvas Slide Drawer (Hidden off-screen right: translateX 100%) */
+.bag {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: min(420px, 100vw);
+    z-index: 90;
+    background: #F3EBDD;
+    /* Antique paper */
+    border-left: 1px solid var(--line);
+    box-shadow: -12px 0 40px rgba(36, 28, 22, 0.16);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    /* Parked off-screen */
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Open State: Slides in smoothly */
+.bag.is-open {
+    transform: translateX(0);
+}
+
+/* Drawer Header */
+.bag__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--line);
+}
+
+.bag__head h2 {
+    font-size: 1.5rem;
+}
+
+.bag__close {
+    cursor: pointer;
+    padding: 8px;
+    color: var(--ink);
+    transition: transform 180ms ease;
+}
+
+.bag__close:hover {
+    transform: rotate(90deg);
+    /* Playful micro-interaction */
+}
+
+/* Items List & Scrollable Body */
+.bag__items {
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
+    padding: 20px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bag__item {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.bag__item img {
+    width: 56px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 4px 10px rgba(36, 28, 22, 0.12);
+}
+
+.bag__item-info h4 {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--ink);
+}
+
+.bag__item-info p {
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+}
+
+/* Empty State Message */
+.bag__empty {
+    padding: 48px 28px;
+    color: var(--ink-3);
+    font-style: italic;
+    text-align: center;
+}
+
+/* Drawer Bottom Calculation & Checkout */
+.bag__foot {
+    padding: 24px 28px;
+    border-top: 1px solid var(--line);
+    background: rgba(230, 216, 195, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bag__row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.bag__note {
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+}

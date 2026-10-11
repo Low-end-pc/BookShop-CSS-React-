@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Floret Bookshop — Curated stories, chosen with care</title>
+  <meta name="description" content="An independent bookshop on Linden Street. Hand-picked fiction, essays, poetry and history, plus readings and a monthly book club.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============ SIDEBAR (desktop) / TOP BAR (mobile) ============ -->
+  <aside class="sidebar" id="sidebar">
+    <a href="#home" class="brand" aria-label="The Floret Bookshop, home">
+      <span class="brand__name">The Floret</span>
+      <span class="brand__sub">Bookshop · est. 2014</span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+
+    <nav class="nav" id="primaryNav" aria-label="Primary">
+      <a href="#home" class="nav__link is-active">Home</a>
+      <a href="#new" class="nav__link">New Arrivals</a>
+      <a href="#pick" class="nav__link">Book of the Month</a>
+      <a href="#journal" class="nav__link">Journal</a>
+      <a href="#events" class="nav__link">Events</a>
+      <a href="#about" class="nav__link">Our Story</a>
+      <a href="#visit" class="nav__link">Visit</a>
+    </nav>
+
+    <div class="sidebar__foot">
+      <button class="bag-btn" id="bagOpen" aria-label="Open your bag">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span>Bag</span>
+        <span class="bag-btn__count" id="bagCount">0</span>
+      </button>
+      <p class="sidebar__hours">Open today · 9am – 8pm<br>42 Linden Street</p>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main" id="main">
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container hero__grid">
+        <div class="hero__text">
+          <p class="hero__kicker">An independent bookshop since 2014</p>
+          <h1>Curated stories, chosen with care.</h1>
+          <p class="hero__lede">Every book on our shelves has been read and argued over by someone on our staff. Find your next one here, or come sit by the window and browse.</p>
+          <div class="hero__actions">
+            <a href="#new" class="btn">Browse new arrivals</a>
+            <a href="#visit" class="btn btn--ghost">Plan a visit</a>
+          </div>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero__stack">
+            <div class="cover hero__book hero__book--1" data-book="piranesi">
+              <img src="images/covers/piranesi.jpg" alt="Piranesi">
+            </div>
+            <div class="cover hero__book hero__book--2" data-book="circe">
+              <img src="images/covers/circe.jpg" alt="Circe">
+            </div>
+            <div class="cover hero__book hero__book--3" data-book="midnight-library">
+              <img src="images/covers/midnight-library.jpg" alt="The Midnight Library">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <dl class="facts">
+          <div><dt>4,200</dt><dd>titles on our shelves</dd></div>
+          <div><dt>36</dt><dd>staff reviews this month</dd></div>
+          <div><dt>Free</dt><dd>local pickup, same day</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- NEW ARRIVALS -->
+    <section class="section section--paper" id="new">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>New arrivals</h2>
+            <p>Fresh off the delivery van this fortnight, and already shelved.</p>
+          </div>
+          <div class="filters" role="tablist" aria-label="Filter by genre">
+            <button class="filter is-active" role="tab" aria-selected="true" data-filter="all">All</button>
+            <button class="filter" role="tab" aria-selected="false" data-filter="Literary Fiction">Literary Fiction</button>
+            <button class="filter" role="tab" aria-selected="false" data-filter="Historical Fiction">Historical Fiction</button>
+            <button class="filter" role="tab" aria-selected="false" data-filter="Speculative Fiction">Speculative Fiction</button>
+          </div>
+        </div>
+
+        <ul class="book-grid" id="bookGrid"><!-- rendered by script.js --></ul>
+      </div>
+    </section>
+
+    <!-- BOOK OF THE MONTH -->
+    <section class="section" id="pick">
+      <div class="container pick">
+        <div class="pick__visual">
+          <div class="cover cover--lg" data-book="midnight-library">
+            <img src="images/covers/midnight-library.jpg" alt="The Midnight Library">
+          </div>
+        </div>
+
+        <div class="pick__body">
+          <p class="label">October book of the month</p>
+          <h2 class="pick__title">The Midnight Library</h2>
+          <p class="pick__author">by Matt Haig</p>
+          <p class="pick__price">$26.00 <span>Hardcover</span></p>
+
+          <p class="pick__synopsis">Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived. To see how things would be if you had made other choices.</p>
+
+          <div class="pick__actions">
+            <button class="btn" data-add="midnight-library">Add to bag</button>
+            <span class="pick__stock">In stock · ready for pickup today</span>
+          </div>
+
+          <blockquote class="staff-quote">
+            <p>“A poignant novel about possibilities, regret, and the choices that make a life worth living.”</p>
+            <cite>Nadia, front desk</cite>
+          </blockquote>
+
+          <details class="details">
+            <summary>Details</summary>
+            <dl class="details__list">
+              <div><dt>Pages</dt><dd>304</dd></div>
+              <div><dt>Publisher</dt><dd>Viking / Penguin</dd></div>
+              <div><dt>Published</dt><dd>2020</dd></div>
+              <div><dt>ISBN</dt><dd>978-0-525-55947-4</dd></div>
+            </dl>
+          </details>
+          <details class="details">
+            <summary>Pickup &amp; shipping</summary>
+            <p>Order before 4pm for same-day pickup at the shop. Shipping within the country takes 2–4 working days and is free over $40.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNAL -->
+    <section class="section section--paper" id="journal">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>From the journal</h2>
+            <p>Notes, interviews and reading lists from behind the counter.</p>
+          </div>
+          <a href="#journal" class="link">All entries</a>
+        </div>
+
+        <div class="journal">
+          <article class="journal__feature">
+            <div class="journal__photo-wrap" aria-hidden="true">
+              <img src="images/journal_feature.jpg" alt="Reading by window" class="journal__photo">
+            </div>
+            <p class="meta">Essay · 2 October 2026 · 6 min read</p>
+            <h3><a href="#journal">Why we shelve books by feeling, not by genre</a></h3>
+            <p>Walk into the back room and you’ll find a shelf labelled “for a rainy Sunday”. It started as a joke. It is now our best-selling corner, and here is what it taught us about how people actually choose books.</p>
+          </article>
+
+          <ol class="journal__list">
+            <li>
+              <p class="meta">Reading list · 24 September</p>
+              <h3><a href="#journal">Seven slim novels for a long weekend</a></h3>
+              <p>All under 200 pages, all impossible to put down.</p>
+            </li>
+            <li>
+              <p class="meta">Interview · 15 September</p>
+              <h3><a href="#journal">Hana Sato on maps, memory and her father’s desk</a></h3>
+              <p>Ahead of her reading here on 17 October.</p>
+            </li>
+            <li>
+              <p class="meta">Essay · 3 September</p>
+              <h3><a href="#journal">The case for rereading in autumn</a></h3>
+              <p>A familiar book is a different book every time you return.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="section" id="events">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2>Upcoming events</h2>
+            <p>Readings, book clubs and small evenings upstairs. All free, seats are limited.</p>
+          </div>
+        </div>
+
+        <ul class="events">
+          <li class="event">
+            <div class="event__date"><span class="event__day">17</span><span class="event__month">Oct · Sat</span></div>
+            <div class="event__info">
+              <h3>An evening with Hana Sato</h3>
+              <p>Reading and signing from <em>The Cartographer’s Daughter</em>, followed by a short Q&amp;A.</p>
+            </div>
+            <p class="event__meta">7:00 pm<br>Upstairs room</p>
+            <button class="btn btn--ghost btn--sm" data-rsvp>Reserve a seat</button>
+          </li>
+          <li class="event">
+            <div class="event__date"><span class="event__day">29</span><span class="event__month">Oct · Thu</span></div>
+            <div class="event__info">
+              <h3>Slow Readers’ Club</h3>
+              <p>This month: <em>The Salt Orchard</em> by Mira Okafor. Tea is on us.</p>
+            </div>
+            <p class="event__meta">6:30 pm<br>Window table</p>
+            <button class="btn btn--ghost btn--sm" data-rsvp>Reserve a seat</button>
+          </li>
+          <li class="event">
+            <div class="event__date"><span class="event__day">08</span><span class="event__month">Nov · Sun</span></div>
+            <div class="event__info">
+              <h3>Poetry at the window</h3>
+              <p>An open mic for new and old poems. Sign up on the night, five minutes each.</p>
+            </div>
+            <p class="event__meta">4:00 pm<br>Main floor</p>
+            <button class="btn btn--ghost btn--sm" data-rsvp>Reserve a seat</button>
+          </li>
+          <li class="event">
+            <div class="event__date"><span class="event__day">21</span><span class="event__month">Nov · Sat</span></div>
+            <div class="event__info">
+              <h3>Saturday story morning</h3>
+              <p>Picture books read aloud for ages 3 to 7. Grown-ups welcome to listen in.</p>
+            </div>
+            <p class="event__meta">10:30 am<br>Children’s corner</p>
+            <button class="btn btn--ghost btn--sm" data-rsvp>Reserve a seat</button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section class="section section--paper" id="about">
+      <div class="container story">
+        <div class="story__visual" aria-hidden="true">
+          <img src="images/shop_interior.jpg" alt="The Floret Bookshop Interior" class="story__photo">
+        </div>
+
+        <div class="story__text">
+          <h2>Our story</h2>
+          <p class="story__lead">Margaret and Sam Holloway opened The Floret in 2014 in what used to be a flower shop on Linden Street. The name stayed, and so did the wide front window.</p>
+          <p>We are a small team of six readers. We don’t stock everything, on purpose. Every title is chosen by someone who has read it and would happily press it into your hands. If we don’t have what you’re looking for, we’ll order it in, usually within three days.</p>
+          <p>Most of all, we wanted a shop where nobody minds if you stay for an hour and leave with nothing. Most people leave with something anyway.</p>
+          <p class="story__sign">— Margaret, Sam &amp; the team</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISIT -->
+    <section class="section" id="visit">
+      <div class="container visit">
+        <div>
+          <h2>Visit the shop</h2>
+          <p>Two minutes from Old Town station. Step-free entrance, and a reading chair that is rarely free.</p>
+        </div>
+        <dl class="visit__info">
+          <div><dt>Address</dt><dd>42 Linden Street<br>Old Town</dd></div>
+          <div><dt>Hours</dt><dd>Mon – Sat · 9am – 8pm<br>Sunday · 11am – 6pm</dd></div>
+          <div><dt>Contact</dt><dd><a href="mailto:hello@floretbooks.co" class="link">hello@floretbooks.co</a><br>(021) 555 0142</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER BAND -->
+    <section class="letter">
+      <div class="container letter__inner">
+        <h2>One letter a month. New books, quiet events, nothing else.</h2>
+        <form class="letter__form" id="letterForm" novalidate>
+          <label for="email" class="sr-only">Email address</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
+          <button type="submit" class="btn btn--light">Subscribe</button>
+          <p class="letter__note" id="letterNote" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer__grid">
+        <div>
+          <p class="footer__brand">The Floret Bookshop</p>
+          <p>Independent since 2014. Chosen by readers, for readers.</p>
+        </div>
+        <nav aria-label="Shop links">
+          <p class="footer__title">Shop</p>
+          <a href="#new">New arrivals</a>
+          <a href="#pick">Book of the month</a>
+          <a href="#new">Gift cards</a>
+        </nav>
+        <nav aria-label="Shop information">
+          <p class="footer__title">The shop</p>
+          <a href="#about">Our story</a>
+          <a href="#events">Events</a>
+          <a href="#journal">Journal</a>
+        </nav>
+        <nav aria-label="Help">
+          <p class="footer__title">Help</p>
+          <a href="#visit">Pickup &amp; shipping</a>
+          <a href="#visit">Contact</a>
+          <a href="#visit">Returns</a>
+        </nav>
+      </div>
+      <div class="container footer__legal">
+        <p>© 2026 The Floret Bookshop</p>
+        <p>Privacy · Terms</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ============ BAG DRAWER ============ -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="bag" id="bag" aria-label="Your bag" aria-hidden="true" tabindex="-1">
+    <header class="bag__head">
+      <h2>Your bag</h2>
+      <button class="icon-btn" id="bagClose" aria-label="Close bag">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </header>
+    <ul class="bag__items" id="bagItems"></ul>
+    <p class="bag__empty" id="bagEmpty">Your bag is empty. The new arrivals are a good place to start.</p>
+    <footer class="bag__foot">
+      <div class="bag__row"><span>Subtotal</span><span id="bagSubtotal">$0.00</span></div>
+      <p class="bag__note">Free local pickup. Shipping calculated at checkout.</p>
+      <button class="btn btn--block" id="checkoutBtn">Proceed to checkout</button>
+    </footer>
+  </aside>
+
+  <!-- ============ BOOK DETAILS MODAL ============ -->
+  <div class="book-modal-scrim" id="bookModalScrim" hidden></div>
+  <dialog class="book-modal" id="bookModal" aria-label="Book Details">
+    <button class="book-modal__close" id="bookModalClose" aria-label="Close details">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="book-modal__grid" id="bookModalContent">
+      <!-- Injected by script.js -->
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
